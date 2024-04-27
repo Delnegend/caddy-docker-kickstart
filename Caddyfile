@@ -5,6 +5,7 @@
 
     @myservice host myservice.example.com
     handle @myservice {
+		# `myservice` is the container's name, set using the `container_name` key.
 		reverse_proxy myservice:80
 	}
 
