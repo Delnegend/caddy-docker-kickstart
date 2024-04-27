@@ -1,4 +1,4 @@
-# Caddy kickstart
+# Caddy-Docker kickstart
 Basic Docker setup of Caddy
 
 # Highlights
