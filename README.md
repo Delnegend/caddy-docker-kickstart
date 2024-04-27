@@ -40,3 +40,58 @@ Basic Docker setup of Caddy
 ```bash
 docker compose up -d
 ```
+
+# Advanced
+- Read the [documentation](https://caddyserver.com/docs/caddyfile)
+
+## Environment variables
+- `DNS_PROVIDER` and `DNS_PROVIDER` are just for convenience, modify directly in the Caddyfile if you want
+```
+*.example.com {
+	tls {
+		dns cloudflare YOUR_TOKEN_HERE
+	}
+
+    # ...
+}
+```
+
+## Multiple domain
+- Haven't tested but it should work
+```
+*.example.com {
+	tls {
+		dns cloudflare YOUR_TOKEN_HERE
+	}
+
+    @myservice host myservice.example.com
+    handle @myservice {
+		reverse_proxy myservice:80
+	}
+
+    @myservice2 host myservice2.example.com
+    handle @myservice {
+		reverse_proxy myservice2:80
+	}
+
+    # ...
+}
+
+*.anotherdomain.com {
+	tls {
+		dns cloudflare YOUR_TOKEN_HERE
+	}
+
+    @myservice host myservice.anotherdomain.com
+    handle @myservice {
+		reverse_proxy myservice3:80
+	}
+
+    @myservice2 host myservice2.anotherdomain.com
+    handle @myservice {
+		reverse_proxy myservice4:80
+	}
+
+    # ...
+}
+```
