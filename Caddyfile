@@ -1,0 +1,17 @@
+*.example.com {
+	tls {
+		dns {env.DNS_PROVIDER} {env.DNS_PROVIDER_TOKEN}
+	}
+
+    @myservice host myservice.example.com
+    handle @myservice {
+		reverse_proxy myservice:80
+	}
+
+    @myservice2 host myservice2.example.com
+    handle @myservice {
+		reverse_proxy myservice2:80
+	}
+
+    # ...
+}

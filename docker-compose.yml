@@ -1,0 +1,27 @@
+services:
+    caddy:
+        container_name: caddy
+        image: alpine:latest
+        restart: unless-stopped
+        ports:
+            - 80:80
+            - 80:80/udp
+            - 443:443
+            - 443:443/udp
+        networks:
+            - web
+        volumes:
+            - ./caddy:/caddy
+            - ./data:/data
+            - ./config:/config
+            - ./Caddyfile:/Caddyfile
+        environment:
+            DNS_PROVIDER:
+            DNS_PROVIDER_TOKEN:
+            XDG_CONFIG_HOME: /config
+            XDG_DATA_HOME: /data
+        command: /caddy run --config /Caddyfile --adapter caddyfile
+networks:
+    web:
+        name: web
+        external: true
